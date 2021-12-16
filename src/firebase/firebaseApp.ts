@@ -7,8 +7,8 @@ export const app = admin.initializeApp({
     credential: applicationDefault(),
    // databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
 });
-export const auth = getAuth();
 
+const db2 = app.firestore();
 
-export const db = getFirestore();
+export const db = app.firestore(); //getFirestore();
 

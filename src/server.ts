@@ -46,9 +46,9 @@
 
 import express from 'express';
 import cors from 'cors';
-import listActions from './routes/listActions'
+import {listRouter} from './routes/listActions'
 const app = express();
 app.use(cors());
-app.use('/list', listActions);
+app.use('/list', listRouter);
 const PORT = 8000;
 app.listen(PORT);

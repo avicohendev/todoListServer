@@ -5,8 +5,10 @@ const router = Router();
 
 router.get('/get/:listId', async (req, res, next) =>{
     if(req.params.listId){
-        console.log(req.params.listId);
-        res.status(200).json({messgae: req.params.listId});
+        const listRef = db.collection('list').doc(req.params.listId);;
+     const data = await  listRef.get();
+
+        res.status(200).json(data);
     }else{
 
         res.status(200).json({messgae: "end"});
@@ -17,7 +19,7 @@ router.get('/get/:listId', async (req, res, next) =>{
 });
 
 router.get('/names', async (req, res, next) =>{
-    
+   
     res.status(200).json({messgae: "end"});
 });
 
@@ -25,4 +27,4 @@ router.post('/create', async (req, res, next)=>{
     res.status(200).json({messgae: "end"});
 })
 
-export default router;
+export const  listRouter = router;
