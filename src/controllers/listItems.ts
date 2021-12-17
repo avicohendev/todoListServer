@@ -10,3 +10,8 @@ export const getListItem = async (itemId :string) => {
     const itemData = item.data();
     return itemData;
 }
+
+export const  createListItem = async (item: ListItem) =>{
+    const itemId = await  dbCollectionsRef.listItems.add(item);
+    return itemId.id;
+}
