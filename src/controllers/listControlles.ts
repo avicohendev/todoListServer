@@ -1,12 +1,17 @@
 import { Response, Request, NextFunction } from "express";
 import { Router } from "express";
-import { CollectionReference, DocumentReference, FieldValue } from "firebase-admin/firestore";
+import { CollectionReference, DocumentReference, FieldValue , Query } from "firebase-admin/firestore";
 import { db , dbCollectionsRef } from "../firebase/firebaseApp";
 import { ListItem } from "../models/list";
 import { getListItem, createListItem} from './listItems'
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 type listGetParams = {
     listId : string
+}
+type userParams={
+    userId: string
+
 }
 
 export const getListById = async (req : Request<listGetParams>, res: Response, next: NextFunction) =>{
@@ -73,12 +78,36 @@ const  createListAndItems = async (list: any) =>{
         items: itemsArr
     });
     
-    //   const list = await db.collection('list').add({
+    //   const list = await db.collection('lisimport { collection, query, where, getDocs } from "firebase/firestore";t').add({
 //     name: 'victory',
 //     user: "ffffff",
 //     items: FieldValue.arrayUnion(db.doc(`${listItem1.path}`), db.doc(`${listItem2.path}`)),
    
 //   });
    
+
+}
+
+export const userLists = async (req : Request<userParams>, res: Response, next: NextFunction) =>{
+    if(req.params.userId){
+        
+        const result : {}[]= [];
+        const names = await dbCollectionsRef.list.select("user", "name").where("user", "==", req.params.userId).get();
+       // const q = query(collection(db,'list'), where("user", "==", req.params.userId));
+       names.forEach(name => {
+
+        const listData = name.data();
+           const listToAdd ={
+               name : listData.name,
+               id: name.id
+           }
+           result.push(listToAdd);
+       })
+        res.status(200).json(result);
+    }else{
+
+        res.status(400).json({messgae: "missing params"});
+
+    }
     
 }
