@@ -10,7 +10,7 @@
 // }
 // const docRef = db.collection('users').doc('alovelace');
 // const func = async () => {
-//   const listItem1 = await db.collection('listItem').add(
+//   const listItem1 = await db.collectilistItemDataon('listItem').add(
 //     {
 //       itemName: 'milk',
 //       amount: 2,
@@ -23,7 +23,7 @@
 //       itemName: 'bread',
 //       amount: 1,
 //       status: itemStatus.notComplete,
-//       createDate : FieldValue.serverTimestamp()
+//       createDate : FieldValue.serverTlistItemDataimestamp()
 //     }
 
     
@@ -47,8 +47,10 @@
 import express from 'express';
 import cors from 'cors';
 import {listRouter} from './routes/listActions'
+import {listItemRouter} from './routes/listItem';
 const app = express();
 app.use(cors());
 app.use('/list', listRouter);
+app.use('/listItem', listItemRouter);
 const PORT = 8000;
 app.listen(PORT);
