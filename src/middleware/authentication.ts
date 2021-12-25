@@ -3,7 +3,7 @@ import { app } from "../firebase/firebaseApp";
 
 export const authenticate = async(req : any, res: any, next: any) =>{
 
-    const userToken = req.headers.authorization.replcae("Bearer ","");
+    const userToken = req.headers.authorization.replace("Bearer ","");
     const user = await app.auth().verifyIdToken(userToken, true);
 
     if(user){
@@ -11,6 +11,9 @@ export const authenticate = async(req : any, res: any, next: any) =>{
         req.userId = user.uid;
         next();
     }
-    res.status(400).json({message: "unauthorized"});
+    else{
+        res.status(400).json({message: "unauthorized"});
+    }
+  
 
 }

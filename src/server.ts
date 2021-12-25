@@ -48,8 +48,10 @@ import express from 'express';
 import cors from 'cors';
 import {listRouter} from './routes/listActions'
 import {listItemRouter} from './routes/listItem';
+import { authenticate } from './middleware/authentication';
 const app = express();
 app.use(cors());
+app.use(authenticate);
 app.use('/list', listRouter);
 app.use('/listItem', listItemRouter);
 const PORT = 8000;
